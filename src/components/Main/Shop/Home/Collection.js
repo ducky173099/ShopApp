@@ -29,9 +29,10 @@ const styles = StyleSheet.create({
         height: height * 0.38,
         backgroundColor: '#fff',
         margin: 10,
-        shadowColor: '#2E272B',
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.2,
+        shadowColor: '#000',
+        shadowOffset: {width: 0,height: 6,},
+        shadowOpacity: 0.39,
+        elevation: 13,
         padding: 10,
         paddingTop: 0,
 
