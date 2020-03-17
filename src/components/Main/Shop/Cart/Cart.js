@@ -20,14 +20,14 @@ export default class Cart extends Component {
       /* </NavigationContainer> */
 
 
-      // <Stack.Navigator headerMode='none' initialRouteName="CART_VIEW">
-      //   <Stack.Screen name="CART_VIEW" component={CartView} />
-      //   {/* <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} /> */}
-      // </Stack.Navigator>
+      <Stack.Navigator headerMode='none' initialRouteName="CART_VIEW">
+        <Stack.Screen name="CART_VIEW" component={CartView} />
+        <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
+      </Stack.Navigator>
 
-      <View>
-        <Text>CARTTTTTTTTTT</Text>
-      </View>
+      // <View>
+      //   <Text>CARTTTTTTTTTT</Text>
+      // </View>
     
     );
   }

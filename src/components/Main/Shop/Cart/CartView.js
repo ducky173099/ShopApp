@@ -8,9 +8,9 @@ export default class CartView extends Component {
         return (
             <View>
                 <Text>ccccccccc</Text>
-                {/* <TouchableOpacity onPress={() => navigation.navigate('PRODUCTDETAIL')}>
+                <TouchableOpacity onPress={() => navigation.navigate('PRODUCTDETAIL')}>
                     <Text>Go to Detail</Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
         );
     }

@@ -8,10 +8,11 @@ const {height} = Dimensions.get('window');
 
 export default class Header extends Component {
   render() {
+      const { navigation } = this.props;
     return (
       <View style={styles.wrapper}>
             <View style={styles.row1}>
-                <TouchableOpacity onPress={this.props.onOpen}>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Image style={styles.iconStyle} source={icMenu}/>
                 </TouchableOpacity>
                 <Text style={styles.title}>Wearing a Dress</Text>

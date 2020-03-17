@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, Image, Dimensions, StyleSheet} from 'react-native';
-import TabNavigator from 'react-native-tab-navigator';
+// import TabNavigator from 'react-native-tab-navigator';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
@@ -16,6 +17,8 @@ import searchIconS from '../../../media/appIcon/search.png';
 import searchIcon from '../../../media/appIcon/search0.png';
 import contactIconS from '../../../media/appIcon/contact.png';
 import contactIcons from '../../../media/appIcon/contact0.png';
+
+const Tab = createBottomTabNavigator();
 
 // import HomeView from './Home/HomeView';
 // import ProductDetail from './ProductDetail/ProductDetail';
@@ -50,11 +53,12 @@ export default class Shop extends Component {
             selectedTab:"home"
         }
     }
-    openMenu() {
-        const { open } = this.props;
-        open();
-    }
+    // openMenu() {
+    //     const { open } = this.props;
+    //     open();
+    // }
     render() {
+        const { navigation } = this.props;
         return (
             <View style={{flex:1}}>
                 {/* <View style={{height:height / 8}}>
@@ -62,8 +66,8 @@ export default class Shop extends Component {
                         <Text>open menu</Text>
                     </TouchableOpacity>
                 </View> */}
-                <Header onOpen = {this.openMenu.bind(this)}/>
-                <TabNavigator tabBarStyle={{backgroundColor:'#fff'}}>
+                <Header navigation={navigation}/>
+                {/* <TabNavigator tabBarStyle={{backgroundColor:'#fff'}}>
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'home'}
                         title="Home"
@@ -103,7 +107,69 @@ export default class Shop extends Component {
                         onPress={() => this.setState({ selectedTab: 'contact' })}>
                         <Contact/>
                     </TabNavigator.Item>
-                </TabNavigator>
+                </TabNavigator> */}
+
+                <Tab.Navigator 
+                    initialRouteName="Home"
+                    tabBarOptions={{activeTintColor: '#34B089',}}>
+                    <Tab.Screen name="Home" component={Home} 
+                        options={{
+                        tabBarLabel: 'Home',
+                        selectedTitleStyle:{color:'#34B089'},
+                        tabBarIcon: ({ focused, color, size }) => (
+                            focused ? <Image source={homeIconS}
+                            style={[{ tintColor: '#34B089', width:25, height:25 }]}
+                            />
+                            : <Image source={homeIcon}
+                                style={[{ tintColor: '#ccc',width:25, height:25 }]}
+                            />
+                        ),
+                        }}
+                    />
+                    <Tab.Screen name="Cart" component={Cart} 
+                        options={{
+                        tabBarLabel: 'Cart',
+                        tabBarIcon: ({ focused, color, size }) => (
+                            focused ? <Image source={cartIconS}
+                            style={[{ tintColor: '#34B089', width:25, height:25 }]}
+                            />
+                            : <Image source={cartIcon}
+                                style={[{ tintColor: '#ccc',width:25, height:25 }]}
+                            />
+                        ),
+                        }}
+                    />
+                    <Tab.Screen name="Search" component={Search} 
+                        options={{
+                        tabBarLabel: 'Search',
+                        tabBarIcon: ({ focused, color, size }) => (
+                            focused ? <Image source={searchIconS}
+                            style={[{ tintColor: '#34B089', width:25, height:25 }]}
+                            />
+                            : <Image source={searchIcon}
+                                style={[{ tintColor: '#ccc',width:25, height:25 }]}
+                            />
+                        ),
+                        }}
+                    />
+                    <Tab.Screen name="Contact" component={Contact} 
+                        options={{
+                        tabBarLabel: 'Contact',
+                        tabBarIcon: ({ focused, color, size }) => (
+                            focused ? <Image source={contactIconS}
+                            style={[{ tintColor: '#34B089', width:25, height:25 }]}
+                            />
+                            : <Image source={contactIcons}
+                                style={[{ tintColor: '#ccc',width:25, height:25 }]}
+                            />
+                        ),
+                        }}
+                    />
+                </Tab.Navigator>
+
+
+
+
             </View>
         );
     }
