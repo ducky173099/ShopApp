@@ -5,6 +5,7 @@ import sp1 from '../../../../media/temp/sp1.jpeg';
 import sp2 from '../../../../media/temp/sp2.jpeg';
 import sp3 from '../../../../media/temp/sp3.jpeg';
 import sp4 from '../../../../media/temp/sp4.jpeg';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -12,32 +13,33 @@ const {width} = Dimensions.get('window');
 
 export default class TopProduct extends Component {
   render() {
+    const {navigation} = this.props;
     return (
       <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>TOP PRODUCT</Text>
             </View>
             <View style={styles.body}>
-                <View style={styles.productContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('PRODUCTDETAIL')} style={styles.productContainer}>
                     <Image style={styles.productImage} source={sp1}/>
                     <Text style={styles.productName}>name sp</Text>
                     <Text style={styles.productPrice}>300$</Text>
-                </View>
-                <View style={styles.productContainer}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.productContainer}>
                     <Image style={styles.productImage} source={sp2}/>
                     <Text style={styles.productName}>name sp</Text>
                     <Text style={styles.productPrice}>250$</Text>
-                </View>
-                <View style={styles.productContainer}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.productContainer}>
                     <Image style={styles.productImage} source={sp3}/>
                     <Text style={styles.productName}>name sp</Text>
                     <Text style={styles.productPrice}>250$</Text>
-                </View>
-                <View style={styles.productContainer}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.productContainer}>
                     <Image style={styles.productImage} source={sp4}/>
                     <Text style={styles.productName}>name sp</Text>
                     <Text style={styles.productPrice}>250$</Text>
-                </View>
+                </TouchableOpacity>
             </View>
       </View>
     );

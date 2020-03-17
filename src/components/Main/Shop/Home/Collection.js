@@ -10,7 +10,7 @@ export default class Collection extends Component {
   render() {
     return (
         <View style={styles.wrapper}>
-            <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={{height: 45, justifyContent: 'center'}}>
                 <Text style={styles.textStyle}>SPRING COLLECTION</Text>
             </View>
             <View style={{flex: 4, justifyContent:'flex-end'}}>
@@ -26,7 +26,8 @@ const imgHeight = (imgWidth / 933) * 465;
 
 const styles = StyleSheet.create({
     wrapper:{
-        height: height * 0.38,
+        // height: height * 0.38,
+        width: width -20,
         backgroundColor: '#fff',
         margin: 10,
         shadowColor: '#000',

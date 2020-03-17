@@ -12,22 +12,29 @@ const {width ,height} = Dimensions.get('window');
 
 export default class Category extends Component {
   render() {
+    const {navigation} = this.props;
     return (
         <View style={styles.wrapper}>
-            <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={{height:45 , justifyContent: 'center'}}>
                 <Text style={styles.textStyle}>LIST OF CATEGORIES</Text>
             </View>
             <View style={{flex: 4, justifyContent:'flex-end'}}>
                 <Swiper>
-                    <ImageBackground style={styles.imageStyle} source={littleIcon}>
-                        <Text style={styles.cateTitle}>Little Dress</Text>
-                    </ImageBackground>
-                    <ImageBackground style={styles.imageStyle} source={maxiIcon}>
-                        <Text style={styles.cateTitle}>Maxi Dress</Text>
-                    </ImageBackground>
-                    <ImageBackground style={styles.imageStyle} source={partyicon}>
-                        <Text style={styles.cateTitle}>Party Dress</Text>
-                    </ImageBackground>
+                    <TouchableOpacity onPress={() => navigation.navigate('LISTPRODUCT')}>
+                        <ImageBackground style={styles.imageStyle} source={littleIcon}>
+                                <Text style={styles.cateTitle}>Little Dress</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('LISTPRODUCT')}>
+                        <ImageBackground style={styles.imageStyle} source={maxiIcon}>
+                            <Text style={styles.cateTitle}>Maxi Dress</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('LISTPRODUCT')}>
+                        <ImageBackground style={styles.imageStyle} source={partyicon}>
+                            <Text style={styles.cateTitle}>Party Dress</Text>
+                        </ImageBackground>
+                    </TouchableOpacity>
                 </Swiper>
             </View>
         </View>
@@ -41,6 +48,7 @@ const imgHeight = (imgWidth / 933) * 465;
 const styles = StyleSheet.create({
     wrapper:{
         height: height * 0.36,
+        width: width - 20,
         backgroundColor: '#fff',
         margin: 10,
         shadowColor: '#000',

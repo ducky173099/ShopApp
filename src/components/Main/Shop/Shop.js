@@ -17,8 +17,32 @@ import searchIcon from '../../../media/appIcon/search0.png';
 import contactIconS from '../../../media/appIcon/contact.png';
 import contactIcons from '../../../media/appIcon/contact0.png';
 
+// import HomeView from './Home/HomeView';
+// import ProductDetail from './ProductDetail/ProductDetail';
+// import ListProduct from './ListProduct/ListProduct';
 
-// const {height} = Dimensions.get('window');
+
+
+// function HomeScreen({ navigation }) {
+//     return (
+//         <Stack.Navigator headerMode='none' initialRouteName="HOME_VIEW">
+//             <Stack.Screen name="HOME_VIEW" component={HomeView} />
+//             <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
+//             <Stack.Screen name="LISTPRODUCT" component={ListProduct} />
+//         </Stack.Navigator>
+//     );
+//   }
+
+  
+// function CartScreen({ navigation }) {
+//     return (
+//         <Stack.Navigator headerMode='none' initialRouteName="HOME_VIEW">
+//             <Stack.Screen name="HOME_VIEW" component={HomeView} />
+//             <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
+//             <Stack.Screen name="LISTPRODUCT" component={ListProduct} />
+//         </Stack.Navigator>
+//     );
+//   }
 export default class Shop extends Component {
     constructor(props){
         super(props);

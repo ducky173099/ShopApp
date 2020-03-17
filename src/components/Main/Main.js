@@ -34,7 +34,7 @@ export default class Main extends Component {
                 ref={(ref) => this._drawer = ref}
                 tapToClose={true}
                 openDrawerOffset={0.3}
-                panCloseMask={0.2}
+                // panCloseMask={0.2}
                 // closedDrawerOffset={-3}
                 acceptPan={true}
                 negotiatePan={true}
