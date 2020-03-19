@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, Image, Dimensions, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Dimensions, StyleSheet, ImageBackground} from 'react-native';
 // import TabNavigator from 'react-native-tab-navigator';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Avatar, Badge, withBadge } from 'react-native-elements';
 
 import Home from './Home/Home';
 import Contact from './Contact/Contact';
@@ -18,47 +19,59 @@ import searchIcon from '../../../media/appIcon/search0.png';
 import contactIconS from '../../../media/appIcon/contact.png';
 import contactIcons from '../../../media/appIcon/contact0.png';
 
+import global from '../../global';
+import CartView from './Cart/CartView';
+
 const Tab = createBottomTabNavigator();
 
-// import HomeView from './Home/HomeView';
-// import ProductDetail from './ProductDetail/ProductDetail';
-// import ListProduct from './ListProduct/ListProduct';
 
-
-
-// function HomeScreen({ navigation }) {
-//     return (
-//         <Stack.Navigator headerMode='none' initialRouteName="HOME_VIEW">
-//             <Stack.Screen name="HOME_VIEW" component={HomeView} />
-//             <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
-//             <Stack.Screen name="LISTPRODUCT" component={ListProduct} />
-//         </Stack.Navigator>
-//     );
-//   }
-
-  
-// function CartScreen({ navigation }) {
-//     return (
-//         <Stack.Navigator headerMode='none' initialRouteName="HOME_VIEW">
-//             <Stack.Screen name="HOME_VIEW" component={HomeView} />
-//             <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
-//             <Stack.Screen name="LISTPRODUCT" component={ListProduct} />
-//         </Stack.Navigator>
-//     );
-//   }
 export default class Shop extends Component {
     constructor(props){
         super(props);
         this.state={
-            selectedTab:"home"
-        }
+            // types:[],
+            // topProducts:[],
+            cartArray: [],
+  
+        };
+        global.addProductToShop = this.addProductToShop.bind(this);
     }
-    // openMenu() {
-    //     const { open } = this.props;
-    //     open();
-    // }
+  
+    componentDidMount(){
+        fetch('http://192.168.0.102:81/APIShopApp/')
+        .then(res => res.json())
+        .then(resJson => {
+          const { type, product } = resJson;
+          this.setState({ 
+            types: type,
+            topProducts: product,
+  
+          });
+        });
+    }
+
+    addProductToShop(product){
+        this.setState({cartArray: this.state.cartArray.concat(product) });
+    }
+  
+    
     render() {
         const { navigation } = this.props;
+        const { cartArray } = this.state;
+
+        // const cartArray = global.addProductToCart;
+        
+        // const { types } = this.state;
+
+        console.log("do dai shop " + cartArray.length)
+
+        const badgeCountJSX = (
+            <View style={styles.badgeCount}>
+                <Text style={styles.countProduct}>{cartArray.length}</Text>
+            </View>
+        );
+
+        const mainBadgeCountJSX = this.state.cartArray.length > 0 ? badgeCountJSX : null;
         return (
             <View style={{flex:1}}>
                 {/* <View style={{height:height / 8}}>
@@ -67,52 +80,11 @@ export default class Shop extends Component {
                     </TouchableOpacity>
                 </View> */}
                 <Header navigation={navigation}/>
-                {/* <TabNavigator tabBarStyle={{backgroundColor:'#fff'}}>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'home'}
-                        title="Home"
-                        selectedTitleStyle={{color:'#34B089'}}
-                        renderIcon={() => <Image style={styles.iconStyle} source={homeIcon} />}
-                        renderSelectedIcon={() => <Image style={styles.iconStyle} source={homeIconS} />}
-                        onPress={() => this.setState({ selectedTab: 'home' })}>
-                        <Home/>
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'cart'}
-                        title="cart"
-                        selectedTitleStyle={{color:'#34B089'}}
-                        renderIcon={() => <Image style={styles.iconStyle} source={cartIcon} />}
-                        renderSelectedIcon={() => <Image style={styles.iconStyle} source={cartIconS} />}
-                        badgeText="1"
-                        onPress={() => this.setState({ selectedTab: 'cart' })}>
-                        <Cart/>
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'search'}
-                        title="search"
-                        selectedTitleStyle={{color:'#34B089'}}
-                        renderIcon={() => <Image style={styles.iconStyle} source={searchIcon} />}
-                        renderSelectedIcon={() => <Image style={styles.iconStyle} source={searchIconS} />}
-                        // badgeText="1"
-                        onPress={() => this.setState({ selectedTab: 'search' })}>
-                        <Search/>
-                    </TabNavigator.Item>
-                    <TabNavigator.Item
-                        selected={this.state.selectedTab === 'contact'}
-                        title="contact"
-                        selectedTitleStyle={{color:'#34B089'}}
-                        renderIcon={() => <Image style={styles.iconStyle} source={contactIcons} />}
-                        renderSelectedIcon={() => <Image style={styles.iconStyle} source={contactIconS} />}
-                        // badgeText="1"
-                        onPress={() => this.setState({ selectedTab: 'contact' })}>
-                        <Contact/>
-                    </TabNavigator.Item>
-                </TabNavigator> */}
 
                 <Tab.Navigator 
                     initialRouteName="Home"
                     tabBarOptions={{activeTintColor: '#34B089',}}>
-                    <Tab.Screen name="Home" component={Home} 
+                    <Tab.Screen name="Home" component={Home}
                         options={{
                         tabBarLabel: 'Home',
                         selectedTitleStyle:{color:'#34B089'},
@@ -130,12 +102,12 @@ export default class Shop extends Component {
                         options={{
                         tabBarLabel: 'Cart',
                         tabBarIcon: ({ focused, color, size }) => (
-                            focused ? <Image source={cartIconS}
+                            focused ? <ImageBackground source={cartIconS}
                             style={[{ tintColor: '#34B089', width:25, height:25 }]}
-                            />
-                            : <Image source={cartIcon}
+                            >{mainBadgeCountJSX}</ImageBackground>
+                            : <ImageBackground source={cartIcon}
                                 style={[{ tintColor: '#ccc',width:25, height:25 }]}
-                            />
+                            >{mainBadgeCountJSX}</ImageBackground>
                         ),
                         }}
                     />
@@ -177,7 +149,23 @@ export default class Shop extends Component {
 
 const styles = StyleSheet.create({
     iconStyle:{
-        width: 20,
-        height: 20,
+        width: 22,
+        height: 22,
+        
+    },
+    badgeCount:{
+        flex:1,
+        width:16,
+        height:16,
+        position:'absolute', 
+        backgroundColor:'red', 
+        left:17, 
+        borderRadius:50,
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    countProduct:{
+        color:'#fff',
+        fontSize:9,
     }
 })

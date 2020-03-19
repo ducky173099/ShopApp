@@ -10,7 +10,9 @@ import ProductDetail from '../ProductDetail/ProductDetail';
 const Stack = createStackNavigator();
 
 export default class Cart extends Component {
+
   render() {
+ 
     return (
       // <NavigationContainer>
         // <Stack.Navigator headerMode='none' initialRouteName="CART_VIEW">
@@ -25,9 +27,6 @@ export default class Cart extends Component {
         <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
       </Stack.Navigator>
 
-      // <View>
-      //   <Text>CARTTTTTTTTTT</Text>
-      // </View>
     
     );
   }
