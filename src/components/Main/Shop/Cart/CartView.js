@@ -17,7 +17,7 @@
 import React, { Component } from 'react';
 import { 
     View, Text, TouchableOpacity, ScrollView, 
-    Dimensions, StyleSheet, Image 
+    Dimensions, StyleSheet, Image , FlatList
 } from 'react-native';
 
 import global from '../../../global';
@@ -28,63 +28,84 @@ import sp1 from '../../.././../media/temp/sp1.jpeg';
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
-
+const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First Item',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Second Item',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Third Item',
+    },
+  ];
+  
 export default class CartView extends Component {
     // gotoDetail() {
     //     const { navigator } = this.props;
     //     navigator.push({ name: 'PRODUCT_DETAIL' });
     // }
 
-    constructor(props){
-        super(props);
-        this.state={
-            types:[],
-            topProducts:[],
-            cartArray: [],
+    // constructor(props){
+    //     super(props);
+    //     this.state={
+    //         types:[],
+    //         topProducts:[],
+    //         cartArray: [],
   
-        };
-        global.addProductToCart = this.addProductToCartView.bind(this);
-    }
+    //     };
+    //     global.addProductToCart = this.addProductToCartView.bind(this);
+    // }
   
-    componentDidMount(){
-        fetch('http://192.168.0.102:81/APIShopApp/')
-        .then(res => res.json())
-        .then(resJson => {
-          const { type, product } = resJson;
-          this.setState({ 
-            types: type,
-            topProducts: product,
+    // componentDidMount(){
+    //     fetch('http://192.168.1.4:81/APIShopApp/')
+    //     .then(res => res.json())
+    //     .then(resJson => {
+    //       const { type, product } = resJson;
+    //       this.setState({ 
+    //         types: type,
+    //         topProducts: product,
   
-          });
-        });
-    }
+    //       });
+    //     });
+    // }
     
-    addProductToCartView(product){
-        this.setState({cartArray: this.state.cartArray.concat(product) });
-    }
+    // addProductToCartView(product){
+    //     this.setState({cartArray: this.state.cartArray.concat(product) });
+    // }
+
+
 
 
     render() {
-        const { navigation } = this.props;
-        const { cartArray } = this.state;
+        const {navigation} = this.props;
+        // const { cartArray } = this.state;
+        const {cartArray} = this.props;
+        const {topProducts} = this.props;
 
-        console.log("do dai CartViewwww " + cartArray.length)
+        
+
+        console.log("CartViewwww " + cartArray)
 
         const { main, checkoutButton, checkoutTitle, wrapper,
-        product, mainRight, productController,
+            productStyle, mainRight, productController,
             txtName, txtPrice, productImage, numberOfProduct, 
             txtShowDetail, showDetailContainer } = styles;
         return (
             <View style={wrapper}>
-                <ScrollView style={main}>
-                    
-                    {cartArray.map(cartProduct => ( 
-                        <View style={product}  key={cartProduct}>
+
+                <FlatList
+                    data={cartArray}
+                    renderItem={({item}) => (
+                        <View style={productStyle}>
                             <Image source={sp1} style={productImage} />
                             <View style={[mainRight]}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={txtName}>{toTitleCase('black of the')}</Text>
-                                    <TouchableOpacity>
+                                    <Text style={txtName}></Text>
+                                    <TouchableOpacity onPress={() => console.log("add cart " )}>
                                         <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -107,8 +128,10 @@ export default class CartView extends Component {
                                 </View>
                             </View>
                         </View>
-                    ))}
-                </ScrollView>
+                    )}
+                    keyExtractor={item => item.id}
+                    
+                />
                 <TouchableOpacity style={checkoutButton}>
                     <Text style={checkoutTitle}>TOTAL {1000}$ CHECKOUT NOW</Text>
                 </TouchableOpacity>
@@ -144,7 +167,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Avenir'
     },
-    product: {
+    productStyle: {
         flexDirection: 'row',
         margin: 10,
         padding: 10,

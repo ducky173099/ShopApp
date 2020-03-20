@@ -2,5 +2,5 @@
 
 module.exports = {
     addProductToCart: null,
-    addProductToShop: null,
+    // addProductToShop: null,
 };

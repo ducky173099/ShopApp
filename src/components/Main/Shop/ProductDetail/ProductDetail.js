@@ -1,23 +1,3 @@
-// import React, { Component } from 'react';
-// import {View, Text, TouchableOpacity} from 'react-native';
-
-// export default class ProductDetail extends Component {
-//   // goBack(){
-//   //   const{navigaton} = this.props;
-//   //   navigaton.pop();
-//   // }
-//   render() {
-//     const { navigation } = this.props;
-//     return (
-//       <View>
-//           <TouchableOpacity onPress={() => navigation.pop()}>
-//             <Text>Go Back Home</Text>
-//           </TouchableOpacity>
-//       </View>
-//     );
-//   }
-// }
-
 import React, { Component } from 'react';
 import { 
     View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
@@ -32,7 +12,7 @@ const back = require('../../../../media/appIcon/back.png');
 const cart = require('../../../../media/appIcon/cartfull.png');
 
 
-const url = 'http://192.168.0.102:81/APIShopApp/images/product/';
+const url = 'http://192.168.1.4:81/APIShopApp/images/product/';
 export default class ProductDetail extends Component {
     
     // goBack() {
@@ -42,8 +22,9 @@ export default class ProductDetail extends Component {
 
     addThisProductToCart(){
         const {product} = this.props;
+        console.log("product Detail " + product);
         global.addProductToCart(product);
-        global.addProductToShop(product);
+        // global.addProductToShop(product);
     }
 
     render() {

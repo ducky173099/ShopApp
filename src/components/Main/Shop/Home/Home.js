@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 export default class Home extends Component {
   render() {
     const { navigation} = this.props;
-    // const { types } = this.props;
+    const {types, topProducts} = this.props;
     return (
       // <ScrollView style={{flex:1, backgroundColor:'#DBDBDB'}}>
       //       <Collection/>

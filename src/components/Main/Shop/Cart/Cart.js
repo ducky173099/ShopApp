@@ -12,7 +12,10 @@ const Stack = createStackNavigator();
 export default class Cart extends Component {
 
   render() {
- 
+    const { navigation } = this.props;
+    const { cartArray } = this.props;
+    const {topProducts} = this.props;
+
     return (
       // <NavigationContainer>
         // <Stack.Navigator headerMode='none' initialRouteName="CART_VIEW">
@@ -23,7 +26,7 @@ export default class Cart extends Component {
 
 
       <Stack.Navigator headerMode='none' initialRouteName="CART_VIEW">
-        <Stack.Screen name="CART_VIEW" component={CartView} />
+        <Stack.Screen name="CART_VIEW" component={() => <CartView cartArray={cartArray} navigation={navigation} topProducts={topProducts}/>} />
         <Stack.Screen name="PRODUCTDETAIL" component={ProductDetail} />
       </Stack.Navigator>
 

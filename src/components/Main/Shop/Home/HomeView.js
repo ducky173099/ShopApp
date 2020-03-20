@@ -17,7 +17,7 @@ export default class HomeView extends Component {
   }
 
   componentDidMount(){
-      fetch('http://192.168.0.102:81/APIShopApp/')
+      fetch('http://192.168.1.4:81/APIShopApp/')
       .then(res => res.json())
       .then(resJson => {
         const { type, product } = resJson;
@@ -44,4 +44,3 @@ export default class HomeView extends Component {
     );
   }
 }
-

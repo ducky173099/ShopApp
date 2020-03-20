@@ -10,7 +10,7 @@ import sp4 from '../../../../media/temp/sp4.jpeg';
 
 
 const {width} = Dimensions.get('window');
-const url = 'http://192.168.0.102:81/APIShopApp/images/product/';
+const url = 'http://192.168.1.4:81/APIShopApp/images/product/';
 
 export default class TopProduct extends Component {
     constructor(props){
@@ -20,41 +20,37 @@ export default class TopProduct extends Component {
         //     dataSource: ds.cloneWithRows(topProducts),
         // }
     }
-  render() {
-    const {navigation} = this.props;
-    
-    const { topProducts } = this.props;
 
-    return (
-      <View style={styles.container}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>TOP PRODUCT</Text>
-            </View>
-            <FlatList 
-                contentContainerStyle={styles.body}
-                data={topProducts}
-                renderItem={({item}) => 
-                    <TouchableOpacity onPress={() => navigation.navigate('PRODUCTDETAIL',
-                        {
-                            id: item.id, 
-                            name: item.name, 
-                            price: item.price,
-                            color: item.color,
-                            material: item.material,
-                            description: item.description,
-                            images: item.images
-                        })} 
-                        style={styles.productContainer}>
-                        <Image style={styles.productImage} source={{uri: url+`${item.images[0]}`}}/>
-                        <Text style={styles.productName}>{item.name.toUpperCase()}</Text>
-                        <Text style={styles.productPrice}>{item.price + '$'}</Text>
-                    </TouchableOpacity>
-                }
-                keyExtractor={(item) => item.id +""}
-            />
-      </View>
-    );
-  }
+    goToDetail(item){
+        const {navigation} = this.props;
+        navigation.navigate('PRODUCTDETAIL', item)
+        }
+    render() {
+        const {navigation} = this.props;
+        
+        const { topProducts } = this.props;
+
+        return (
+        <View style={styles.container}>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>TOP PRODUCT</Text>
+                </View>
+                <FlatList 
+                    contentContainerStyle={styles.body}
+                    data={topProducts}
+                    renderItem={({item}) => 
+                        <TouchableOpacity onPress={() => this.goToDetail(item)} 
+                            style={styles.productContainer}>
+                            <Image style={styles.productImage} source={{uri: url+`${item.images[0]}`}}/>
+                            <Text style={styles.productName}>{item.name.toUpperCase()}</Text>
+                            <Text style={styles.productPrice}>{item.price + '$'}</Text>
+                        </TouchableOpacity>
+                    }
+                    keyExtractor={(item) => item.id +""}
+                />
+        </View>
+        );
+    }
 }
 
 

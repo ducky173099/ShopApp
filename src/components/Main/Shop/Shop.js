@@ -29,16 +29,16 @@ export default class Shop extends Component {
     constructor(props){
         super(props);
         this.state={
-            // types:[],
-            // topProducts:[],
+            types:[],
+            topProducts:[],
             cartArray: [],
   
         };
-        global.addProductToShop = this.addProductToShop.bind(this);
+        global.addProductToCart = this.addProductToCart.bind(this);
     }
   
     componentDidMount(){
-        fetch('http://192.168.0.102:81/APIShopApp/')
+        fetch('http://192.168.1.4:81/APIShopApp/')
         .then(res => res.json())
         .then(resJson => {
           const { type, product } = resJson;
@@ -50,18 +50,24 @@ export default class Shop extends Component {
         });
     }
 
-    addProductToShop(product){
-        this.setState({cartArray: this.state.cartArray.concat(product) });
+    addProductToCart(product){
+        this.setState({cartArray: this.state.cartArray.concat({product}) });
+
+        console.log("cartArrayyy " + this.state.cartArray)
+        console.log("PRODUCTTT " + product)
     }
   
     
     render() {
         const { navigation } = this.props;
+        // const {types} = this.state;
+        const {topProducts} = this.state;
         const { cartArray } = this.state;
+    
 
         // const cartArray = global.addProductToCart;
         
-        // const { types } = this.state;
+        
 
         console.log("do dai shop " + cartArray.length)
 
@@ -72,6 +78,8 @@ export default class Shop extends Component {
         );
 
         const mainBadgeCountJSX = this.state.cartArray.length > 0 ? badgeCountJSX : null;
+
+
         return (
             <View style={{flex:1}}>
                 {/* <View style={{height:height / 8}}>
@@ -98,7 +106,7 @@ export default class Shop extends Component {
                         ),
                         }}
                     />
-                    <Tab.Screen name="Cart" component={Cart} 
+                    <Tab.Screen name="Cart" component={() => <Cart cartArray={cartArray} navigation={navigation} topProducts={topProducts}/>} 
                         options={{
                         tabBarLabel: 'Cart',
                         tabBarIcon: ({ focused, color, size }) => (
